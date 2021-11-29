@@ -307,7 +307,7 @@ class Client implements ClientInterface
                     . 'x-www-form-urlencoded requests, and the multipart '
                     . 'option to send multipart/form-data requests.');
             }
-            $options['body'] = http_build_query($options['form_params'], '', '&');
+            $options['body'] = http_build_query($options['form_params']);
             unset($options['form_params']);
             // Ensure that we don't have the header in different case and set the new value.
             $options['_conditional'] = Psr7\_caseless_remove(['Content-Type'], $options['_conditional']);
@@ -368,7 +368,7 @@ class Client implements ClientInterface
         if (isset($options['query'])) {
             $value = $options['query'];
             if (is_array($value)) {
-                $value = http_build_query($value, null, '&', PHP_QUERY_RFC3986);
+                $value = http_build_query($value, '', '&', PHP_QUERY_RFC3986);
             }
             if (!is_string($value)) {
                 throw new \InvalidArgumentException('query must be a string or array');
